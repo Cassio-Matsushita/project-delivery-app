@@ -23,7 +23,7 @@ export default function Login({ history }) {
 
   const handleClick = async () => {
     const data = await login(email, password);
-    console.log(data);
+    if (data) history.push('/customer/products');
   };
 
   return (

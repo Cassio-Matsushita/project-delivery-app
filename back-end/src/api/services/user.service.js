@@ -11,7 +11,7 @@ const createUser = async ({ email, password, name }) => {
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
 
   const user = await User.create({ name, email, password: hashedPassword, role: 'customer' });
-  console.log('service', user);
+  
   return user;
 };
 

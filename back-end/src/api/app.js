@@ -1,6 +1,6 @@
 const cors = require('cors');
 const express = require('express');
-const router = require('./routers');
+const { userRouter, loginRouter } = require('./routers');
 
 const app = express();
 
@@ -10,6 +10,8 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use(cors());
 
-app.use(router.userRouter);
+app.use(userRouter);
+
+app.use(loginRouter);
 
 module.exports = app;
