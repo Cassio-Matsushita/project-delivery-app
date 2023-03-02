@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+
 import propTypes from 'prop-types';
+import login from '../api/fetchApi';
 
 const SIX = 6;
 
@@ -18,6 +20,11 @@ export default function Login({ history }) {
       setisBtnDisabled(true);
     }
   }, [email, password]);
+
+  const handleClick = async () => {
+    const data = await login(email, password);
+    if (data) history.push('/customer/products');
+  };
 
   return (
     <div>
@@ -51,6 +58,7 @@ export default function Login({ history }) {
           data-testid="common_login__button-login"
           type="button"
           disabled={ isBtnDisabled }
+          onClick={ handleClick }
         >
           Login
         </button>
