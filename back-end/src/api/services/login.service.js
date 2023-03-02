@@ -1,5 +1,5 @@
-const { User } = require('../../database/models');
 const crypto = require('crypto'); 
+const { User } = require('../../database/models');
 
 const getUser = async ({ email, password }) => {
   const registeredEmail = await User.findOne({ where: { email } });
