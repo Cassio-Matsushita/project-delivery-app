@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import propTypes from 'prop-types';
 
 const SIX = 6;
 
-export default function Login() {
+export default function Login({ history }) {
   const [email, setChangeEmail] = useState('');
   const [password, setChangePass] = useState('');
   const [isBtnDisabled, setisBtnDisabled] = useState(true);
@@ -56,6 +57,7 @@ export default function Login() {
         <button
           type="button"
           data-testid="common_login__button-register"
+          onClick={ () => history.push('/register') }
         >
           Registrar
         </button>
@@ -68,3 +70,9 @@ export default function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
+  }).isRequired,
+};
