@@ -1,6 +1,6 @@
 const cors = require('cors');
 const express = require('express');
-const { userRouter, loginRouter } = require('./routers');
+const { userRouter, loginRouter, productRouter } = require('./routers');
 
 const app = express();
 
@@ -13,5 +13,10 @@ app.use(cors());
 app.use(userRouter);
 
 app.use(loginRouter);
+
+app.use(productRouter);
+
+app.use(express.static('public'));
+app.use(express.static('images'));
 
 module.exports = app;
