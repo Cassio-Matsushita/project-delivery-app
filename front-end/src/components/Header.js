@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
-export default function Header() {
-  // const logoff = () => {
-  //   localStorage.removeItem('token');
-  //   localStorage.removeItem('role');
-  //   setLogin(false);
-  //   <Redirect to="/login" />
-  // };
+export default function Header({ history }) {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const userLocalStorage = JSON.parse(localStorage.getItem('user'));
+    if (userLocalStorage) setUser(userLocalStorage);
+  }, []);
+
+  const handleClick = () => {
+    localStorage.removeItem('user');
+
+    history.push('/login');
+  };
 
   return (
     <header>
@@ -19,23 +25,22 @@ export default function Header() {
       >
         Pedidos
       </Link>
-      <h2 data-testid="customer_products__element-navbar-user-full-name">
-        LaLaLa
-      </h2>
-      <Link
+      <p data-testid="customer_products__element-navbar-user-full-name">
+        { user.name }
+      </p>
+      <button
         data-testid="customer_products__element-navbar-link-logout"
-        to="/login"
+        type="button"
+        onClick={ handleClick }
       >
         Sair
-      </Link>
+      </button>
     </header>
   );
 }
 
-// Header.propTypes = {
-//   page: PropTypes.string.isRequired,
-//   FirstNavigationLink: PropTypes.elementType.isRequired,
-//   SecondNavegationLink: PropTypes.elementType,
-//   logged: PropTypes.bool,
-//   setLogin: PropTypes.func,
-// };
+Header.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
+  }).isRequired,
+};

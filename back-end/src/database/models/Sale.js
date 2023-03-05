@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       id: { primaryKey: true, type: DataTypes.INTEGER, autoIncrement: true },
       userId: { type: DataTypes.INTEGER, foreignKey: true },
       sellerId: { type: DataTypes.INTEGER, foreignKey: true },
-      totalPrice: DataTypes.FLOAT,
+      totalPrice: DataTypes.DECIMAL(9, 2),
       deliveryAddress: DataTypes.STRING,
       deliveryNumber: DataTypes.STRING,
       saleDate: DataTypes.DATE,

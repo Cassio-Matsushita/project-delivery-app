@@ -9,12 +9,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      totalPrice: { type: Sequelize.FLOAT },
-      deliveryAddress: { type: Sequelize.STRING },
-      deliveryNumber: { type: Sequelize.STRING },
-      saleDate: { type: Sequelize.DATE },
+      total_price: { type: Sequelize.DECIMAL(9, 2) },
+      delivery_address: { type: Sequelize.STRING },
+      delivery_number: { type: Sequelize.STRING },
+      sale_date: { type: Sequelize.DATE },
       status: { type: Sequelize.STRING },
-      userId: {
+      user_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         onUpdate: "CASCADE",
@@ -24,7 +24,7 @@ module.exports = {
           key: "id",
         },
       },
-      sellerId: {
+      seller_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         onUpdate: "CASCADE",
