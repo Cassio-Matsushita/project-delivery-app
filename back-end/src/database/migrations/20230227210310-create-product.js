@@ -10,8 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: { type: Sequelize.STRING },
-      price: { type: Sequelize.FLOAT },
-      urlImage: { type: Sequelize.STRING },
+      price: { type: Sequelize.DECIMAL(10, 2) },
+      url_image: { type: Sequelize.STRING },
     });
   },
 

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-
 import propTypes from 'prop-types';
-import login from '../api/fetchApi';
+import login, { validateUser, setToken } from '../api/fetchApi';
 
 const SIX = 6;
 
 export default function Login({ history }) {
   const [email, setChangeEmail] = useState('');
   const [password, setChangePass] = useState('');
+  const [isLogged, setIsLogged] = useState(true);
   const [isBtnDisabled, setisBtnDisabled] = useState(true);
 
   useEffect(() => {
@@ -22,8 +22,22 @@ export default function Login({ history }) {
   }, [email, password]);
 
   const handleClick = async () => {
-    const data = await login(email, password);
-    if (data) history.push('/customer/products');
+    try {
+      const { data } = await login(email, password);
+
+      setToken(data);
+      const { data: { name, email: userEmail, role } } = await validateUser();
+      const user = { name, email: userEmail, role, token: data };
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+        setIsLogged(true);
+        history.push('/customer/products');
+      }
+      setIsLogged(false);
+      // console.log(isLogged);
+    } catch (error) {
+      setIsLogged(false);
+    }
   };
 
   return (
@@ -73,7 +87,7 @@ export default function Login({ history }) {
       <p
         data-testid="common_login__element-invalid-email"
       >
-        Usuário inválido!
+        {!isLogged && 'Usuário inválido!'}
       </p>
     </div>
   );

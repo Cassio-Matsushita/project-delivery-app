@@ -1,108 +1,74 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import propTypes from 'prop-types';
 import Header from '../components/Header';
+import { getProducts } from '../api/fetchApi';
 
-const products = [
-  {
-    id: 1,
-    name: 'Skol Lata 250ml',
-    price: 2.2,
-    urlImage: 'http://localhost:3001/images/skol_lata_350ml.jpg',
-  },
-  {
-    id: 2,
-    name: 'Heineken 600ml',
-    price: 7.5,
-    urlImage: 'http://localhost:3001/images/heineken_600ml.jpg',
-  },
-  {
-    id: 3,
-    name: 'Antarctica Pilsen 300ml',
-    price: 2.49,
-    urlImage: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
-  },
-  {
-    id: 4,
-    name: 'Brahma 600ml',
-    price: 7.5,
-    urlImage: 'http://localhost:3001/images/brahma_600ml.jpg',
-  },
-  {
-    id: 5,
-    name: 'Skol 269ml',
-    price: 2.19,
-    urlImage: 'http://localhost:3001/images/skol_269ml.jpg',
-  },
-  {
-    id: 6,
-    name: 'Skol Beats Senses 313ml',
-    price: 4.49,
-    urlImage: 'http://localhost:3001/images/skol_beats_senses_313ml.jpg',
-  },
-  {
-    id: 7,
-    name: 'Becks 330ml',
-    price: 4.99,
-    urlImage: 'http://localhost:3001/images/becks_330ml.jpg',
-  },
-  {
-    id: 8,
-    name: 'Brahma Duplo Malte 350ml',
-    price: 2.79,
-    urlImage: 'http://localhost:3001/images/brahma_duplo_malte_350ml.jpg',
-  },
-  {
-    id: 9,
-    name: 'Becks 600ml',
-    price: 8.89,
-    urlImage: 'http://localhost:3001/images/becks_600ml.jpg',
-  },
-  {
-    id: 10,
-    name: 'Skol Beats Senses 269ml',
-    price: 3.57,
-    urlImage: 'http://localhost:3001/images/skol_beats_senses_269ml.jpg',
-  },
-  {
-    id: 11,
-    name: 'Stella Artois 275ml',
-    price: 3.49,
-    urlImage: 'http://localhost:3001/images/stella_artois_275ml.jpg',
-  },
-];
+export default function Products({ history }) {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const getAllProducts = async () => {
+      const { data } = await getProducts();
+      setProducts(data);
+    };
+    getAllProducts();
+  }, []);
 
-export default function Products() {
   return (
     <div>
-      <Header />
-      {products.map((product, index) => (
-        <div key={ index }>
-          <p data-testid={ `customer_products__element-card-title-${product.id}` } />
-          <p data-testid={ `customer_products__element-card-price-${product.id}` } />
-          <img
-            src={ product.urlImage }
-            alt=""
-            data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-          />
-          <button
-            data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-            type="button"
-            onClick={ () => {} }
-          >
-            -
-          </button>
-          <input
-            type="number"
-            data-testid={ `customer_products__input-card-quantity-${product.id}` }
-            onChange={ () => {} }
-          />
-          <button
-            data-testid={ `customer_products__button-card-add-item-${product.id}` }
-            type="button"
-            onClick={ () => {} }
-          >
-            +
-          </button>
-        </div>))}
+      <Header history={ history } />
+      {products.length > 0
+        && products.map((product, index) => (
+          <div key={ index }>
+            <p
+              data-testid={ `customer_products__element-card-title-${product.id}` }
+            >
+              {product.name}
+            </p>
+            <p
+              data-testid={ `customer_products__element-card-price-${product.id}` }
+            >
+              {product.price.replaceAll('.', ',')}
+            </p>
+            <img
+              src={
+                product.name === 'Skol Lata 250ml'
+                  ? 'http://localhost:3001/images/skol_lata_350ml.jpg'
+                  : `http://localhost:3001/images/${product.name
+                    .replaceAll(' ', '_')
+                    .toLowerCase()}.jpg`
+              }
+              alt=""
+              data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+              width="5%"
+            />
+            <button
+              data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+              type="button"
+              onClick={ () => {} }
+            >
+              -
+            </button>
+            <input
+              type="number"
+              defaultValue={ 0 }
+              data-testid={ `customer_products__input-card-quantity-${product.id}` }
+              onChange={ () => {} }
+            />
+            <button
+              data-testid={ `customer_products__button-card-add-item-${product.id}` }
+              type="button"
+              onClick={ () => {} }
+            >
+              +
+            </button>
+          </div>
+        ))}
     </div>
   );
 }
+
+Products.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
+  }).isRequired,
+};

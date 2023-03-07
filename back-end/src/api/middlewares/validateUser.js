@@ -1,7 +1,6 @@
 const validateEmail = (email) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
 
 const userValidation = (req, res, next) => {
-    console.log('REQBODY', req.body);
     const { email, password, displayName } = req.body;
     if (displayName && displayName.length < 12) {
         return res.status(400)
