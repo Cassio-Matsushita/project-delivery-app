@@ -28,13 +28,16 @@ export default function Login({ history }) {
       setToken(data);
       const { data: { name, email: userEmail, role } } = await validateUser();
       const user = { name, email: userEmail, role, token: data };
+
       if (user) {
         localStorage.setItem('user', JSON.stringify(user));
         setIsLogged(true);
+        if (email === 'adm@deliveryapp.com') {
+          return history.push('/admin/manage');
+        }
         history.push('/customer/products');
       }
       setIsLogged(false);
-      // console.log(isLogged);
     } catch (error) {
       setIsLogged(false);
     }
