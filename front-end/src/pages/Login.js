@@ -35,6 +35,9 @@ export default function Login({ history }) {
         if (email === 'adm@deliveryapp.com') {
           return history.push('/admin/manage');
         }
+        if (email === 'fulana@deliveryapp.com') {
+          return history.push('/seller/orders');
+        }
         history.push('/customer/products');
       }
       setIsLogged(false);

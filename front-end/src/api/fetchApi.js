@@ -46,13 +46,10 @@ export const createSale = async (sale, token) => {
 
 export const getSales = async () => {
   try {
-    const data = await api.get('/sales')
-      .catch((error) => {
-        console.error(error);
-      });
+    const data = await api.get('/sales');
     return data;
   } catch (error) {
-    console.log(error);
+    console.error('Error fetching sales data:', error);
   }
 };
 
