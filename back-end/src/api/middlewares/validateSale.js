@@ -1,19 +1,12 @@
 const { verifyToken } = require('../auth/jwtFunctions');
 
-const auth = (req, res) => {
+const validateSale = (req, res, next) => {
   try {
     const { authorization } = req.headers;
     if (authorization) {
       const user = verifyToken(authorization);
 
-      return res
-        .status(201)
-        .json({
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          token: authorization,
-        });
+      if (user) return next();
     }
     return res.status(401).json({ message: 'Token not found' });
   } catch (error) {
@@ -21,4 +14,4 @@ const auth = (req, res) => {
   }
 };
 
-module.exports = { auth };
+module.exports = { validateSale };

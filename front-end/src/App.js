@@ -6,6 +6,7 @@ import Products from './pages/Products';
 import Checkout from './pages/Checkout';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
+import CustomerOrders from './pages/CustomerOrders';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/customer/checkout" component={ Checkout } />
+        <Route exact path="/customer/orders/:id" component={ CustomerOrders } />
       </Switch>
 
     </div>

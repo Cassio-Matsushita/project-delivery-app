@@ -10,8 +10,8 @@ const getUser = async ({ email, password }) => {
   if (!registeredEmail) return { message: 'Invalid User or Password' };
 
   if (hashedPassword === registeredEmail.password) {
-    const { name, email: userEmail, role } = registeredEmail;
-    const result = token.createToken(name, userEmail, role);
+    const { id, name, email: userEmail, role } = registeredEmail;
+    const result = token.createToken(id, name, userEmail, role);
     return result;
   }
 };

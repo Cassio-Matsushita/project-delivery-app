@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("sale", {
+    await queryInterface.createTable("sales", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
       delivery_address: { type: Sequelize.STRING },
       delivery_number: { type: Sequelize.STRING },
       sale_date: { type: Sequelize.DATE },
-      status: { type: Sequelize.STRING },
+      status: { type: Sequelize.STRING, defaultValue: 'Pendente' },
       user_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
