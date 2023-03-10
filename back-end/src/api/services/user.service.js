@@ -15,6 +15,12 @@ const createUser = async ({ email, password, name }) => {
   return user;
 };
 
+const getAll = async () => {
+  const user = await User.findAll();
+  return user;
+};
+
 module.exports = {
   createUser,
+  getAll,
 };

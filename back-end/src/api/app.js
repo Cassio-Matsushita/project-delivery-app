@@ -1,6 +1,6 @@
 const cors = require('cors');
 const express = require('express');
-const { userRouter, loginRouter, productRouter } = require('./routers');
+const { userRouter, loginRouter, productRouter, saleRouter } = require('./routers');
 
 const app = express();
 
@@ -15,6 +15,8 @@ app.use(userRouter);
 app.use(loginRouter);
 
 app.use(productRouter);
+
+app.use(saleRouter);
 
 app.use(express.static('public'));
 app.use(express.static('images'));
