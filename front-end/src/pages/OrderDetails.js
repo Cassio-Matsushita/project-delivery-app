@@ -9,7 +9,7 @@ const QUANTITY = 'seller_order_details__element-order-table-quantity';
 const UNIT_PRICE = 'seller_order_details__element-order-table-unit-price';
 const SUB_TOTAL = 'seller_order_details__element-order-table-sub-total';
 const STATUS = 'seller_order_details__element-order-details-label-delivery-status';
-// const TEN = 10;
+const TEN = 10;
 
 export default function OrderDetails({ history }) {
   const [sales, setSales] = useState([]);
@@ -25,14 +25,14 @@ export default function OrderDetails({ history }) {
     getAllSales();
   }, [sales]);
 
-  // function converterData(saleDate) {
-  //   const data = new Date(saleDate);
-  //   const dia = data.getUTCDate();
-  //   const mes = data.getUTCMonth() + 1;
-  //   const ano = data.getUTCFullYear();
-  //   const result = `${dia < TEN ? `0${dia}` : dia}/${mes < TEN ? `0${mes}` : mes}/${ano}`;
-  //   return result;
-  // }
+  function converterData(saleDate) {
+    const data = new Date(saleDate);
+    const dia = data.getUTCDate();
+    const mes = data.getUTCMonth() + 1;
+    const ano = data.getUTCFullYear();
+    const result = `${dia < TEN ? `0${dia}` : dia}/${mes < TEN ? `0${mes}` : mes}/${ano}`;
+    return result;
+  }
 
   let totalPrice = 0;
   itensCart.forEach((item) => {
@@ -64,8 +64,7 @@ export default function OrderDetails({ history }) {
             <p
               data-testid="seller_order_details__element-order-details-label-order-date"
             >
-              {/* {converterData(sale.saleDate)} */}
-              10/03/2023
+              {converterData(sale.saleDate)}
             </p>
             <button
               data-testid="seller_order_details__button-preparing-check"
