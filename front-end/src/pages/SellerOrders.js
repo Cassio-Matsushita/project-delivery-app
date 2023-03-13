@@ -19,7 +19,6 @@ export default function SellerOrders({ history }) {
     <div>
       <Header history={ history } />
       SellerOrders
-      {/* {console.log(sales)} */}
       {sales.length > 0
         && sales.map((sale, index) => (
           <div key={ index }>

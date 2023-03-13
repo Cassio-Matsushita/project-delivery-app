@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { getSales } from '../api/fetchApi';
+import { getSales, updateSaleStatus } from '../api/fetchApi';
 import Header from '../components/Header';
 
 const ITEM_NUMBER = 'seller_order_details__element-order-table-item-number';
@@ -14,6 +14,8 @@ const TEN = 10;
 export default function OrderDetails({ history }) {
   const [sales, setSales] = useState([]);
   const [itensCart, setItensCart] = useState([]);
+  const [isPending, setIsPending] = useState(true);
+  const [isInTransit, setIsInTransit] = useState(false);
 
   useEffect(() => {
     const getAllSales = async () => {
@@ -23,7 +25,19 @@ export default function OrderDetails({ history }) {
       setItensCart(getCartItens);
     };
     getAllSales();
-  }, [sales]);
+    if (sales[0] && sales[0].status === 'Pendente') {
+      setIsPending(true);
+      setIsInTransit(false);
+    }
+    if (sales[0] && sales[0].status === 'Preparando') {
+      setIsInTransit(true);
+      setIsPending(false);
+    }
+    if (sales[0] && sales[0].status === 'Em Trânsito') {
+      setIsInTransit(false);
+      setIsPending(false);
+    }
+  }, [sales, isPending, isInTransit]);
 
   function converterData(saleDate) {
     const data = new Date(saleDate);
@@ -38,6 +52,21 @@ export default function OrderDetails({ history }) {
   itensCart.forEach((item) => {
     totalPrice += (item.qtd * item.price);
   });
+
+  const updateStatus = async (event, saleId, SaleStatus) => {
+    const e = event.target.value;
+
+    if (e === 'Preparar' && SaleStatus === 'Pendente') {
+      await updateSaleStatus(saleId, SaleStatus);
+      setIsInTransit(true);
+      setIsPending(false);
+    }
+
+    if (e === 'Entregar' && SaleStatus === 'Preparando') {
+      await updateSaleStatus(saleId, SaleStatus);
+      setIsInTransit(false);
+    }
+  };
 
   return (
     <div>
@@ -69,13 +98,18 @@ export default function OrderDetails({ history }) {
             <button
               data-testid="seller_order_details__button-preparing-check"
               type="button"
+              value="Preparar"
+              disabled={ !isPending }
+              onClick={ (event) => updateStatus(event, sale.id, sale.status) }
             >
               PREPARAR PEDIDO
             </button>
             <button
               data-testid="seller_order_details__button-dispatch-check"
               type="button"
-              disabled
+              value="Entregar"
+              disabled={ !isInTransit }
+              onClick={ (event) => updateStatus(event, sale.id, sale.status) }
             >
               SAIU PARA ENTREGA
             </button>

@@ -21,7 +21,7 @@ export default function Header({ history }) {
       <h2 data-testid="customer_products__element-navbar-link-products">PRODUTOS</h2>
       <Link
         data-testid="customer_products__element-navbar-link-orders"
-        to="/orders"
+        to="/customer/orders"
       >
         Pedidos
       </Link>

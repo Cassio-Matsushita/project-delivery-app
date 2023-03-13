@@ -10,6 +10,7 @@ import ManageUsers from './pages/ManageUsers';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import CustomerOrders from './pages/CustomerOrders';
+import CustomerOrdersDetails from './pages/CustomerOrderDetails';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/customer/checkout" component={ Checkout } />
-        <Route exact path="/customer/orders/:id" component={ CustomerOrders } />
+        <Route exact path="/customer/orders" component={ CustomerOrders } />
+        <Route exact path="/customer/orders/:id" component={ CustomerOrdersDetails } />
         <Route exact path="/seller/orders" component={ SellerOrders } />
         <Route exact path="/seller/orders/:id" component={ OrderDetails } />
         <Route exact path="/admin/manage" component={ ManageUsers } />
