@@ -6,7 +6,7 @@ const getSales = async () => {
 };
 
 const insertSales = async (sale) => {
-  const sales = await Sale.create({
+  const sales = await Sale.create({ 
     userId: sale.userId,
     sellerId: sale.sellerId,
     totalPrice: sale.totalPrice,
@@ -18,7 +18,26 @@ const insertSales = async (sale) => {
   return sales;
 };
 
+const updateSaleStatus = async (saleId, saleStatus) => {
+  if (saleStatus === 'Pendente') { 
+    const sale = await Sale.update(
+      { status: 'Preparando' },
+      { where: { id: saleId } },
+      );
+    return sale;
+  }
+
+  if (saleStatus === 'Preparando') {
+    const sale = await Sale.update(
+      { status: 'Em Trânsito' },
+      { where: { id: saleId } },
+    );
+    return sale;
+  }
+};
+
 module.exports = {
   getSales,
   insertSales,
+  updateSaleStatus,
 };

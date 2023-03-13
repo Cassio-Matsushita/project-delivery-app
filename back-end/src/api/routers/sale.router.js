@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.get('/sales', saleController.getSales);
 router.post('/sales', middlewares.validateSale, saleController.createSales);
+router.put('/sales', saleController.updateSaleStatus);
 
 module.exports = router;

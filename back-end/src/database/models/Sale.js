@@ -8,13 +8,13 @@ module.exports = (sequelize, DataTypes) => {
       totalPrice: DataTypes.DECIMAL(9, 2),
       deliveryAddress: DataTypes.STRING,
       deliveryNumber: DataTypes.STRING,
-      saleDate: DataTypes.DATE,
-      status: DataTypes.STRING, defaultValue: 'Pendente'
+      saleDate: DataTypes.DATE, 
+      status: { type: DataTypes.STRING, defaultValue: 'Pendente' }
     },
     {
       tableName: "sales",
       timestamps: false,
-      underscored: true,
+      underscored: true
     }
   );
 

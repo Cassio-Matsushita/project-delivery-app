@@ -14,4 +14,11 @@ const createSales = async (req, res) => {
   return res.status(201).json(result);
 };
 
-module.exports = { getSales, createSales };
+const updateSaleStatus = async (req, res) => {
+  const { saleId, saleStatus } = req.body;
+  const result = await saleService.updateSaleStatus(saleId, saleStatus);
+  if (!result) return res.status(404).send('Not Found');
+  return res.status(200).json(result);
+};
+
+module.exports = { getSales, createSales, updateSaleStatus };

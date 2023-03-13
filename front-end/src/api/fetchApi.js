@@ -6,10 +6,7 @@ const api = axios.create({
 
 const login = async (email, password) => {
   try {
-    const token = await api.post('/login', { email, password })
-      .catch((error) => {
-        console.error(error);
-      });
+    const token = await api.post('/login', { email, password });
     return token;
   } catch (error) {
     console.log(error);
@@ -18,10 +15,7 @@ const login = async (email, password) => {
 
 export const getProducts = async () => {
   try {
-    const data = await api.get('/products')
-      .catch((error) => {
-        console.error(error);
-      });
+    const data = await api.get('/products');
     return data;
   } catch (error) {
     console.log(error);
@@ -34,34 +28,34 @@ export const setToken = (token) => {
 
 export const createSale = async (sale, token) => {
   try {
-    const data = await api.post('/sales', sale, { headers: { Authorization: token } })
-      .catch((error) => {
-        console.error(error);
-      });
+    const data = await api.post('/sales', sale, { headers: { Authorization: token } });
     return data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const updateSaleStatus = async (saleId, saleStatus) => {
+  try {
+    const data = await api.put('/sales', { saleId, saleStatus });
+    return data;
+  } catch (error) {
+    console.log('Error fetching updateSale:', error);
   }
 };
 
 export const getSales = async () => {
   try {
-    const data = await api.get('/sales')
-      .catch((error) => {
-        console.error(error);
-      });
+    const data = await api.get('/sales');
     return data;
   } catch (error) {
-    console.log(error);
+    console.error('Error fetching sales data:', error);
   }
 };
 
 export const getUsers = async () => {
   try {
-    const data = await api.get('/users')
-      .catch((error) => {
-        console.error(error);
-      });
+    const data = await api.get('/users');
     return data;
   } catch (error) {
     console.log(error);
@@ -70,10 +64,7 @@ export const getUsers = async () => {
 
 export const validateUser = async () => {
   try {
-    const data = await api.get('/login/validate')
-      .catch((error) => {
-        console.error(error);
-      });
+    const data = await api.get('/login/validate');
     return data;
   } catch (error) {
     console.log(error);

@@ -4,14 +4,18 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import Checkout from './pages/Checkout';
+import SellerOrders from './pages/SellerOrders';
+import OrderDetails from './pages/OrderDetails';
+import ManageUsers from './pages/ManageUsers';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import CustomerOrders from './pages/CustomerOrders';
+import CustomerOrdersDetails from './pages/CustomerOrderDetails';
 
 function App() {
   return (
     <div className="App">
-      <span className="logo">TRYBE</span>
+      {/* <span className="logo">TRYBE</span> */}
       <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
         Glass
       </object>
@@ -22,9 +26,12 @@ function App() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/customer/checkout" component={ Checkout } />
-        <Route exact path="/customer/orders/:id" component={ CustomerOrders } />
+        <Route exact path="/customer/orders" component={ CustomerOrders } />
+        <Route exact path="/customer/orders/:id" component={ CustomerOrdersDetails } />
+        <Route exact path="/seller/orders" component={ SellerOrders } />
+        <Route exact path="/seller/orders/:id" component={ OrderDetails } />
+        <Route exact path="/admin/manage" component={ ManageUsers } />
       </Switch>
-
     </div>
   );
 }
